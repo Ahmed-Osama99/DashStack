@@ -38,22 +38,14 @@ const AnalyticsDashboard = () => {
   }, []);
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="p-5">
       <h1>Dashboard Analytics</h1>
 
-      <div
-        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Chart 1: Time Series from metrics.json */}
-        <div
-          style={{
-            border: "1px solid #ccc",
-            padding: "20px",
-            borderRadius: "8px",
-          }}
-        >
+        <div className="border border-border p-5 rounded-lg bg-card">
           <h3>Revenue & Traffic Over Time</h3>
-          <div style={{ height: 300 }}>
+          <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 data={metricsData.series}
@@ -83,21 +75,13 @@ const AnalyticsDashboard = () => {
               </LineChart>
             </ResponsiveContainer>
           </div>
-          <p style={{ fontSize: "0.8rem", color: "#666" }}>
-            Source: src/data/metrics.json
-          </p>
+          <p className="text-xs text-muted">Source: src/data/metrics.json</p>
         </div>
 
         {/* Chart 2: Aggregated Data from transactions.json */}
-        <div
-          style={{
-            border: "1px solid #ccc",
-            padding: "20px",
-            borderRadius: "8px",
-          }}
-        >
+        <div className="border border-border p-5 rounded-lg bg-card">
           <h3>Transactions by Status</h3>
-          <div style={{ height: 300 }}>
+          <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={transactionStats}
@@ -112,7 +96,7 @@ const AnalyticsDashboard = () => {
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <p style={{ fontSize: "0.8rem", color: "#666" }}>
+          <p className="text-xs text-muted">
             Source: src/data/transactions.json (Aggregated)
           </p>
         </div>

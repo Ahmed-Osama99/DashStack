@@ -1,12 +1,47 @@
 @import "tailwindcss";
-:root {
-  --main-color: #1b2431;
-  --secondary-color: #273142;
-  --hero-color: #4880ff;
+
+/* Light theme (default) */
+@theme {
+  --color-bg: #f3f4f6;
+  --color-alt: #ffffff;
+  --color-text: #202224;
+  --color-primary: #4880ff;
+  --color-card: #ffffff;
+  --color-border: #e5e7eb;
+  --color-input: #eeeeee;
+  --color-table-head: #eeeeee;
+  --color-table-hover: #eeeeee;
+  --color-table-border: #e5e7eb;
+  --color-muted: #9ca3af;
+  --color-overlay: #000000;
+  --color-danger: #ef4444;
+  --color-star: #FFD56D;
 }
+
+/* Override dark variant to use class strategy (matches ThemeContext) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Dark theme — plain CSS so .dark class toggles values */
+.dark {
+  --color-bg: #1b2431;
+  --color-alt: #273142;
+  --color-text: #ddd;
+  --color-primary: #4880ff;
+  --color-card: #374151;
+  --color-border: #4b5563;
+  --color-input: #374151;
+  --color-table-head: #374151;
+  --color-table-hover: #374151;
+  --color-table-border: #4b5563;
+  --color-muted: #6b7280;
+  --color-overlay: #000000;
+  --color-danger: #ef4444;
+  --color-star: #FFD56D;
+}
+
 body {
-  background-color: var(--main-color);
-  color: white;
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 main {
   @apply p-4 pt-6;
@@ -31,4 +66,11 @@ main {
   .dashboard-main {
     grid-area: main;
   }
+}
+
+.mailbox-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
 }

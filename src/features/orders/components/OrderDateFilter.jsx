@@ -8,14 +8,20 @@ const OrderDateFilter = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   // Filters context
-  const { chosenDates, toggleChosenDates, formatDisplayDate, filterHandle } =
-    useFilters();
+  const {
+    chosenDates,
+    setChosenDates,
+    toggleChosenFilter,
+    formatDisplayDate,
+    filterHandle,
+  } = useFilters();
 
   const handleNextMonth = () => {
     setCurrentDate(
       new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1),
     );
   };
+
   const handlePrevMonth = () => {
     setCurrentDate(
       new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1),
@@ -64,7 +70,7 @@ const OrderDateFilter = () => {
   return (
     <FilterWrapper
       id="date"
-      action={() => filterHandle("date")}
+      action={filterHandle}
       disabled={!chosenDates.length}
     >
       {/* Header */}
@@ -77,14 +83,14 @@ const OrderDateFilter = () => {
         </h3>
         <div className="flex gap-2">
           <button
-            className="bg-gray-500 rounded-sm w-6 h-6 flex items-center justify-center hover:bg-gray-400 transition-colors"
+            className="bg-border rounded-sm w-6 h-6 flex items-center justify-center hover:bg-muted transition-colors"
             onClick={handlePrevMonth}
             aria-label="Previous Month"
           >
             <FontAwesomeIcon icon={faAngleLeft} />
           </button>
           <button
-            className="bg-gray-500 rounded-sm w-6 h-6 flex items-center justify-center hover:bg-gray-400 transition-colors"
+            className="bg-border rounded-sm w-6 h-6 flex items-center justify-center hover:bg-muted transition-colors"
             onClick={handleNextMonth}
             aria-label="Next Month"
           >
@@ -116,14 +122,16 @@ const OrderDateFilter = () => {
           return (
             <button
               key={cell.id}
-              onClick={() => toggleChosenDates(cell.id)}
+              onClick={() =>
+                toggleChosenFilter(chosenDates, setChosenDates, cell.id)
+              }
               className={`
                         rounded-sm py-1 transition-colors 
                         ${cell.isToday && "bg-[#FF8743] text-white"}
                         ${
                           cell.isSelected
-                            ? "!bg-(--hero-color) text-white font-bold"
-                            : "hover:bg-(--hero-color)/50"
+                            ? "!bg-primary text-white font-bold"
+                            : "hover:bg-primary/50"
                         }
                     `}
             >

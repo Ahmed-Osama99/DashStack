@@ -1,27 +1,22 @@
 const statusColor = {
-  completed: "#00B69B",
-  processing: "#6226EF",
-  rejected: "#EF3826",
-  "on hold": "#FFA756",
-  "in transit": "#BA29FF",
+  completed: "bg-[#00B69B]",
+  processing: "bg-[#6226EF]",
+  rejected: "bg-[#EF3826]",
+  "on hold": "bg-[#FFA756]",
+  "in transit": "bg-[#BA29FF]",
 };
 
-const OrderItem = ({order}) => {
+const OrderItem = ({ order }) => {
   return (
-    <tr className="hover:bg-gray-700/30 transition-colors">
+    <tr className="bg-alt hover:bg-table-hover transition-colors">
       <td className="px-6 py-4">{order.id}</td>
-      <td className="px-6 py-4 font-medium text-white">{order.name}</td>
+      <td className="px-6 py-4 font-medium text-text">{order.name}</td>
       <td className="px-6 py-4">{order.address}</td>
       <td className="px-6 py-4">{order.date}</td>
       <td className="px-6 py-4 capitalize">{order.type}</td>
       <td className="px-6 py-4 capitalize">
         <span
-          style={{
-            backgroundColor: statusColor[order.status],
-            padding: "4px 8px",
-            borderRadius: "4px",
-            color: "white",
-          }}
+          className={`px-4 py-2 rounded-lg text-white ${statusColor[order.status]}`}
         >
           {order.status}
         </span>

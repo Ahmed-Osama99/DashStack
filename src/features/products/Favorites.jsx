@@ -1,4 +1,4 @@
-import { useFavorites } from "./context/FavoritesContext";
+import { useFavorites } from "./hooks/useFavorites";
 import ProductCard from "./components/ProductCard";
 const Favorites = () => {
   const { favoriteList } = useFavorites();
@@ -13,7 +13,7 @@ const Favorites = () => {
         </div>
       ) : (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">
+          <p className="text-muted text-lg">
             Your Favorite list is currently empty.
           </p>
         </div>

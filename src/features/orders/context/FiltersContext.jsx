@@ -1,49 +1,23 @@
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useCallback, useMemo, useState } from "react";
 import orders from "../../../data/orders.json";
 
 const FiltersContext = createContext();
 
 export const FiltersProvider = ({ children }) => {
   const ordersData = useMemo(() => orders, []);
-  const [currentPage, setCurrentPage] = useState(0);
   const [chosenDates, setChosenDates] = useState([]);
   const [chosenTypes, setChosenTypes] = useState([]);
   const [chosenStatus, setChosenStatus] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [openFilter, setOpenFilter] = useState(null);
-  // toggle data will view
   const dataWillDisplay = useMemo(() => {
     return filteredOrders.length ? filteredOrders : ordersData;
   }, [filteredOrders, ordersData]);
-  // orders will render per page
-  const ordersPerPage = Math.min(9, dataWillDisplay.length);
-  // page start order
-  const startOrder = currentPage * ordersPerPage;
-  // toggle chosen dates
-  const toggleChosenDates = (day) => {
-    const isChosen = chosenDates.includes(day);
-    setChosenDates((prev) =>
-      isChosen ? prev.filter((d) => d !== day) : [...prev, day],
-    );
-  };
-  // toggle chosen types
-  const toggleChosenTypes = (type) => {
-    const isChosen = chosenTypes.includes(type);
-    setChosenTypes((prev) =>
-      isChosen ? prev.filter((t) => t !== type) : [...prev, type],
-    );
-  };
-  // toggle chosen types
-  const toggleChosenStatus = (status) => {
-    const isChosen = chosenStatus.includes(status);
-    setChosenStatus((prev) =>
-      isChosen ? prev.filter((s) => s !== status) : [...prev, status],
+  // toggle chosen filter (date, type, status)
+  const toggleChosenFilter = (filterType, filterTypeSetter, item) => {
+    const isChosen = filterType.includes(item);
+    filterTypeSetter((prev) =>
+      isChosen ? prev.filter((t) => t !== item) : [...prev, item],
     );
   };
   // for open / close filters
@@ -55,10 +29,6 @@ export const FiltersProvider = ({ children }) => {
     const id = e.currentTarget.id;
     setOpenFilter((currOpen) => (currOpen === id ? null : id));
   };
-  // helper: for trigger change
-  useEffect(() => {
-    console.log(chosenTypes);
-  }, [chosenTypes]);
 
   // Helper: Display format for the UI "14 Oct 2024"
   const formatDisplayDate = (date) => {
@@ -69,32 +39,25 @@ export const FiltersProvider = ({ children }) => {
       year: "numeric",
     });
   };
-  //
-  const filterHandle = useCallback(
-    (filterType) => {
-      if (!dataWillDisplay) return;
-      if (filterType === "date") {
-        setFilteredOrders(
-          dataWillDisplay.filter((order) =>
-            chosenDates.includes(formatDisplayDate(order.date)),
-          ),
-        );
-      } else if (filterType === "type") {
-        setFilteredOrders(
-          dataWillDisplay.filter((order) => chosenTypes.includes(order.type)),
-        );
-      } else {
-        setFilteredOrders(
-          dataWillDisplay.filter((order) =>
-            chosenStatus.includes(order.status),
-          ),
-        );
-      }
-      setCurrentPage(0);
-      setOpenFilter(null);
-    },
-    [chosenDates, chosenTypes, chosenStatus, dataWillDisplay],
-  );
+
+  // filter handle (date, type, status)
+  const filterHandle = useCallback(() => {
+    if (!ordersData) return;
+
+    setFilteredOrders(
+      ordersData.filter((order) => {
+        const matchesDate =
+          chosenDates.length === 0 ||
+          chosenDates.includes(formatDisplayDate(order.date));
+        const matchesType =
+          chosenTypes.length === 0 || chosenTypes.includes(order.type);
+        const matchesStatus =
+          chosenStatus.length === 0 || chosenStatus.includes(order.status);
+        return matchesDate && matchesType && matchesStatus;
+      }),
+    );
+    setOpenFilter(null);
+  }, [chosenDates, chosenTypes, chosenStatus, ordersData]);
 
   const resetAllFilters = () => {
     setFilteredOrders([]);
@@ -114,17 +77,15 @@ export const FiltersProvider = ({ children }) => {
         openFilter,
         dataWillDisplay,
         filteredOrders,
-        startOrder,
-        ordersPerPage,
-        toggleChosenDates,
-        toggleChosenTypes,
-        toggleChosenStatus,
+        setChosenDates,
+        setChosenTypes,
+        setChosenStatus,
+        toggleChosenFilter,
         formatDisplayDate,
         filterHandle,
         setOpenFilter,
         resetAllFilters,
         toggleFilter,
-        setCurrentPage,
       }}
     >
       {children}

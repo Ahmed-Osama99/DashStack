@@ -4,8 +4,13 @@ import FilterWrapper from "./FilterWrapper";
 import FilterCard from "./FilterCard";
 
 const OrderStatusFilter = () => {
-  const { ordersData, chosenStatus, filterHandle, toggleChosenStatus } =
-    useFilters();
+  const {
+    ordersData,
+    chosenStatus,
+    setChosenStatus,
+    filterHandle,
+    toggleChosenFilter,
+  } = useFilters();
   const ordersStatus = useMemo(() => {
     return [...new Set(ordersData.map((order) => order.status))];
   }, [ordersData]);
@@ -13,7 +18,7 @@ const OrderStatusFilter = () => {
     <FilterWrapper
       id="status"
       disabled={!chosenStatus.length}
-      action={() => filterHandle("status")}
+      action={filterHandle}
     >
       {/* Header */}
       <h2 className="grow font-bold text-lg pb-4">Select Order Status</h2>
@@ -22,8 +27,10 @@ const OrderStatusFilter = () => {
           <FilterCard
             key={status}
             content={status}
-            onClick={() => toggleChosenStatus(status)}
-            className={chosenStatus.includes(status) && "bg-(--hero-color)"}
+            onClick={() =>
+              toggleChosenFilter(chosenStatus, setChosenStatus, status)
+            }
+            className={chosenStatus.includes(status) && "bg-primary"}
           />
         ))}
       </div>

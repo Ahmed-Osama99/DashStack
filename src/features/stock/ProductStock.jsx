@@ -1,43 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import products from "../../data/products.json";
-import {
-  faArrowLeft,
-  faArrowRight,
-  faPenToSquare,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
-import { useMemo, useState } from "react";
+import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { useMemo } from "react";
+import { usePagination } from "../../hooks/usePagination";
+import TablePagination from "../../components/TablePagination";
 
 const ProductStock = () => {
-  // const stockData = products.categories.flatMap((c) => c.products);
-
   const stockData = useMemo(
     () =>
       products.categories.flatMap((cat) =>
-        cat.products.map((product) => ({ ...product, category: cat.name }))
+        cat.products.map((product) => ({ ...product, category: cat.name })),
       ),
-    []
+    [],
   );
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const productsPerPage = 6;
-
-  const startIndex = currentPage * productsPerPage;
-  const selectedProducts = useMemo(() => {
-    return stockData.slice(startIndex, startIndex + productsPerPage);
-  }, [stockData, startIndex, productsPerPage]);
-
-  const nextPage = () => {
-    if (startIndex + productsPerPage < stockData.length) {
-      setCurrentPage((c) => c + 1);
-    }
-  };
-
-  const prevPage = () => {
-    if (currentPage > 0) {
-      setCurrentPage((c) => c - 1);
-    }
-  };
+  const { pageData, startIndex, nextPage, prevPage, endOfPage, totalItems } =
+    usePagination(stockData, 7);
 
   return (
     <main id="stock" className="dashboard-main">
@@ -48,13 +26,13 @@ const ProductStock = () => {
           name="stock-search"
           id="stock-search"
           placeholder="Search product name"
-          className="px-4 py-2 bg-gray-700 rounded-full w-full max-w-[20rem] focus:outline-2 focus:outline-(--hero-color)"
+          className="px-4 py-2 bg-input rounded-full w-full max-w-[20rem] focus:outline-2 focus:outline-primary"
         />
       </div>
       {/* table area */}
-      <div className="overflow-x-auto bg-gray-800 rounded-xl border border-gray-700">
-        <table className="w-full text-left text-gray-300">
-          <thead className="bg-gray-700/50 text-xs uppercase font-medium text-gray-100">
+      <div className="overflow-x-auto bg-card rounded-xl border border-border">
+        <table className="w-full text-left text-text">
+          <thead className="bg-table-head text-xs uppercase font-medium text-text">
             <tr>
               <th scope="col" className="px-6 py-4">
                 Image
@@ -79,14 +57,14 @@ const ProductStock = () => {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-700">
-            {selectedProducts.map((product) => (
+          <tbody className="divide-y divide-table-border">
+            {pageData.map((product) => (
               <tr
                 key={product.id}
-                className="hover:bg-gray-700/30 transition-colors"
+                className="bg-alt hover:bg-table-hover transition-colors"
               >
                 <td className="px-6 py-4">
-                  <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-600">
+                  <div className="w-12 h-12 rounded-lg overflow-hidden bg-alt">
                     <img
                       src={product.image}
                       alt={product.name}
@@ -94,7 +72,7 @@ const ProductStock = () => {
                     />
                   </div>
                 </td>
-                <td className="px-6 py-4 font-medium text-white">
+                <td className="px-6 py-4 font-medium text-text">
                   {product.name}
                 </td>
                 <td className="px-6 py-4">{product.category}</td>
@@ -105,7 +83,7 @@ const ProductStock = () => {
                     {product.colors.map((color, index) => (
                       <div
                         key={index}
-                        className="w-6 h-6 rounded-full border-2 border-gray-800"
+                        className="w-6 h-6 rounded-full border-2 border-card"
                         style={{ backgroundColor: color }}
                       ></div>
                     ))}
@@ -113,10 +91,10 @@ const ProductStock = () => {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex gap-2">
-                    <button className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white transition-colors">
+                    <button className="p-2 rounded-lg bg-alt hover:bg-border text-text transition-colors">
                       <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
-                    <button className="p-2 rounded-lg bg-gray-700 hover:bg-red-500/20 text-gray-300 hover:text-red-500 transition-colors">
+                    <button className="p-2 rounded-lg bg-alt hover:bg-danger/20 text-text hover:text-danger transition-colors">
                       <FontAwesomeIcon icon={faTrashCan} />
                     </button>
                   </div>
@@ -126,17 +104,13 @@ const ProductStock = () => {
           </tbody>
         </table>
       </div>
-      <div className="mt-6 flex justify-between items-center">
-        <p className="text-gray-400">Showing {startIndex + 1}-{startIndex + productsPerPage} of {stockData.length}</p>
-        <div className="flex divide-x divide-gray-700 rounded-sm overflow-hidden">
-          <button onClick={prevPage} className="px-2 py-1 bg-(--secondary-color) hover:bg-(--secondary-color)/30 transition-colors">
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </button>
-          <button onClick={nextPage} className="px-2 py-1 bg-(--secondary-color) hover:bg-(--secondary-color)/30 transition-colors">
-            <FontAwesomeIcon icon={faArrowRight} />
-          </button>
-        </div>
-      </div>
+      <TablePagination
+        startIndex={startIndex}
+        endOfPage={endOfPage}
+        totalItems={totalItems}
+        prevPage={prevPage}
+        nextPage={nextPage}
+      />
     </main>
   );
 };

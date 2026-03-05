@@ -1,11 +1,21 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const FavoritesContext = createContext();
 
 export const FavoritesProvider = ({ children }) => {
-  // get from local storage if found
-  const storedFavoriteList = JSON.parse(localStorage.getItem("favoriteList"));
-  const [favoriteList, setFavoriteList] = useState(storedFavoriteList || []);
+  // Lazy initialization: This function only runs once on the initial mount
+  const [favoriteList, setFavoriteList] = useState(() => {
+    try {
+      const storedFavoriteList = localStorage.getItem("favoriteList");
+      // Only parse if the item exists, otherwise default to an empty array
+      return storedFavoriteList ? JSON.parse(storedFavoriteList) : [];
+    } catch (error) {
+      // Catch malformed JSON to prevent app crashes
+      console.error("Failed to parse favorites from localStorage:", error);
+      return []; 
+    }
+  });
+
   // add / remove product from favoriteList
   const toggleFavoriteList = (product) => {
     setFavoriteList((prev) => {
@@ -16,6 +26,7 @@ export const FavoritesProvider = ({ children }) => {
       return [...prev, product];
     });
   };
+
   // check specific product(id) in favoriteList
   const isInFavoriteList = (id) => {
     return favoriteList.some((item) => item.id === id);
@@ -35,5 +46,4 @@ export const FavoritesProvider = ({ children }) => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useFavorites = () => useContext(FavoritesContext);
+export { FavoritesContext };

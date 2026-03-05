@@ -17,13 +17,13 @@ const FiltersContainer = () => {
   return (
     <div
       ref={filterGroupRef}
-      className="filters-container flex my-4 bg-gray-700/50 w-fit divide-x divide-gray-700 rounded-xl"
+      className="filters-container flex my-4 bg-table-head w-fit divide-x divide-border rounded-xl"
     >
       <div className="relative">
         <button
           id="date"
           onClick={toggleFilter}
-          className="p-4 flex items-center gap-2 text-sm cursor-pointer hover:bg-gray-700 transition-colors rounded-l-xl"
+          className="p-4 flex items-center gap-2 text-sm cursor-pointer hover:bg-table-hover transition-colors rounded-l-xl"
         >
           Date <FontAwesomeIcon icon={faAngleDown} />
         </button>
@@ -32,7 +32,7 @@ const FiltersContainer = () => {
       <div className="relative">
         <button
           id="type"
-          className="p-4 flex items-center gap-2 text-sm cursor-pointer hover:bg-gray-700 transition-colors"
+          className="p-4 flex items-center gap-2 text-sm cursor-pointer hover:bg-table-hover transition-colors"
           onClick={toggleFilter}
         >
           Order Type <FontAwesomeIcon icon={faAngleDown} />
@@ -43,7 +43,7 @@ const FiltersContainer = () => {
         <button
           id="status"
           onClick={toggleFilter}
-          className="p-4 flex items-center gap-2 text-sm cursor-pointer hover:bg-gray-700 transition-colors"
+          className="p-4 flex items-center gap-2 text-sm cursor-pointer hover:bg-table-hover transition-colors"
         >
           Order Status <FontAwesomeIcon icon={faAngleDown} />
         </button>
@@ -52,7 +52,7 @@ const FiltersContainer = () => {
       <button
         id="reset"
         onClick={resetAllFilters}
-        className="p-4 flex items-center gap-2 text-sm cursor-pointer hover:bg-gray-700 transition-colors rounded-r-xl text-[#FF8743]"
+        className="p-4 flex items-center gap-2 text-sm cursor-pointer hover:bg-table-hover transition-colors rounded-r-xl text-[#FF8743]"
       >
         <FontAwesomeIcon icon={faRotateRight} /> Reset All
       </button>
