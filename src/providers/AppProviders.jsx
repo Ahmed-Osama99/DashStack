@@ -8,7 +8,7 @@ const AppProviders = ({ children }) => {
     <ThemeProvider>
       <FavoritesProvider>
         <FiltersProvider>
-          <BrowserRouter>{children}</BrowserRouter>
+          <BrowserRouter basename="/DashStack">{children}</BrowserRouter>
         </FiltersProvider>
       </FavoritesProvider>
     </ThemeProvider>
