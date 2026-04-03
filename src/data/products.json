@@ -15,7 +15,7 @@
           "stock": 75,
           "status": "active",
           "createdAt": "2024-11-12",
-          "image": "/smart-watch.webp",
+          "image": "/DashStack/smart-watch.webp",
           "colors": ["#e11d48", "#2563eb", "#16a34a"]
         },
         {
@@ -29,7 +29,7 @@
           "stock": 42,
           "status": "active",
           "createdAt": "2024-10-05",
-          "image": "/smart-watch.webp",
+          "image": "/DashStack/smart-watch.webp",
           "colors": ["#000000", "#ffffff", "#9ca3af"]
         },
         {
@@ -43,7 +43,7 @@
           "stock": 50,
           "status": "active",
           "createdAt": "2024-11-05",
-          "image": "/smart-watch.webp",
+          "image": "/DashStack/smart-watch.webp",
           "colors": ["#000000", "#ffffff", "#ff0000"]
         },
         {
@@ -57,7 +57,7 @@
           "stock": 30,
           "status": "active",
           "createdAt": "2024-10-20",
-          "image": "/smart-watch.webp",
+          "image": "/DashStack/smart-watch.webp",
           "colors": ["#000000", "#333333"]
         }
       ]
@@ -77,7 +77,7 @@
           "stock": 18,
           "status": "low-stock",
           "createdAt": "2024-09-22",
-          "image": "/smart-watch.webp",
+          "image": "/DashStack/smart-watch.webp",
           "colors": ["#4b5563", "#d97706", "#dc2626"]
         },
         {
@@ -91,7 +91,7 @@
           "stock": 10,
           "status": "low-stock",
           "createdAt": "2024-08-30",
-          "image": "/smart-watch.webp",
+          "image": "/DashStack/smart-watch.webp",
           "colors": ["#8b5cf6", "#ec4899", "#14b8a6"]
         },
         {
@@ -105,7 +105,7 @@
           "stock": 25,
           "status": "active",
           "createdAt": "2024-09-15",
-          "image": "/smart-watch.webp",
+          "image": "/DashStack/smart-watch.webp",
           "colors": ["#8b4513", "#ffffff", "#000000"]
         },
         {
@@ -119,7 +119,7 @@
           "stock": 10,
           "status": "low-stock",
           "createdAt": "2024-08-10",
-          "image": "/smart-watch.webp",
+          "image": "/DashStack/smart-watch.webp",
           "colors": ["#808080", "#000080", "#f5f5dc"]
         }
       ]
@@ -139,7 +139,7 @@
           "stock": 120,
           "status": "active",
           "createdAt": "2024-11-01",
-          "image": "/smart-watch.webp",
+          "image": "/DashStack/smart-watch.webp",
           "colors": ["#1e3a8a", "#1e40af", "#1d4ed8"]
         },
         {
@@ -153,7 +153,7 @@
           "stock": 60,
           "status": "active",
           "createdAt": "2024-10-18",
-          "image": "/smart-watch.webp",
+          "image": "/DashStack/smart-watch.webp",
           "colors": ["#facc15", "#a3e635", "#fbbf24"]
         },
         {
@@ -167,7 +167,7 @@
           "stock": 80,
           "status": "active",
           "createdAt": "2024-10-25",
-          "image": "/smart-watch.webp",
+          "image": "/DashStack/smart-watch.webp",
           "colors": ["#000000", "#8b4513"]
         },
         {
@@ -181,7 +181,7 @@
           "stock": 100,
           "status": "active",
           "createdAt": "2024-11-08",
-          "image": "/smart-watch.webp",
+          "image": "/DashStack/smart-watch.webp",
           "colors": ["#ffffff", "#000000", "#0000ff"]
         }
       ]
